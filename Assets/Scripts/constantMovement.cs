@@ -194,6 +194,18 @@ public class constantMovement : MonoBehaviour
         {
             gameManager.Death();
         }
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {  
+        if (other.gameObject.tag == "Coin")
+        {
+            Debug.Log("COIN!");
+            Destroy(other.gameObject);
+            gameManager.coinCount++;
+        }
+
     }
 
     private bool IsGrounded()  // Better grounding check (_controller.isGrounded isnt as forgiving, causing double jumps from ground)

@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class gameManagement : MonoBehaviour {
     public bool started;
+    public int coinCount;
+
 
 	// Use this for initialization
 	void Start () {
         started = false;
+        coinCount = 0;
 		
 	}
 	
@@ -17,6 +20,7 @@ public class gameManagement : MonoBehaviour {
         {
             started = true;
         }
+        Debug.Log(coinCount);
 	}
     public void Death()
     {
