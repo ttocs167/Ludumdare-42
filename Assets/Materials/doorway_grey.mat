@@ -10,7 +10,7 @@ Material:
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _GLOSSINESS_FROM_BASE_ALPHA _NORMALMAP_TANGENT_SPACE
     _SPECULAR_COLOR
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -185,7 +185,7 @@ Material:
     - _EnableWind: 0
     - _EnergyConservingSpecularColor: 1
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 1
     - _GlossinessSource: 0
     - _GlossyReflections: 1
     - _HeightAmplitude: 0.02
@@ -202,7 +202,7 @@ Material:
     - _InvTilingScale: 1
     - _LinkDetailsWithBase: 1
     - _MaterialID: 1
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
     - _NormalMapSpace: 0
     - _NormalScale: 1
@@ -252,7 +252,7 @@ Material:
     - _BaseColor: {r: 0.09558821, g: 0.09558821, b: 0.09558821, a: 1}
     - _Color: {r: 0.09558821, g: 0.09558821, b: 0.09558821, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
-    - _EmissionColor: {r: 1, g: 0.57586205, b: 0.25, a: 1}
+    - _EmissionColor: {r: 1, g: 0.77254903, b: 0.18431373, a: 1}
     - _EmissiveColor: {r: 1, g: 0.57586205, b: 0.25, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
