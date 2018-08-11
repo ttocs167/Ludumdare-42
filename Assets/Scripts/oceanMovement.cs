@@ -14,6 +14,8 @@ public class oceanMovement : MonoBehaviour {
     private List<bool> flowDirection = new List<bool>();
     private float initial;
 
+    public float planeSpeed;
+    public float planeAccel;
 	// Use this for initialization
 	void Start () {
 
@@ -55,5 +57,9 @@ public class oceanMovement : MonoBehaviour {
         }
         mesh.vertices = vertices;
         mesh.RecalculateBounds();
+
+        //Rising water
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed/100, this.transform.position.z);
+        planeSpeed = planeSpeed + planeAccel;
     }
 }
