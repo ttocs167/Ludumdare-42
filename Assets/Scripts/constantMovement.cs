@@ -189,7 +189,7 @@ public class constantMovement : MonoBehaviour
 
     private bool IsGrounded()  // Better grounding check (_controller.isGrounded isnt as forgiving, causing double jumps from ground)
     {
-        return Physics.Raycast(_controller.transform.position, -Vector3.up, _controller.bounds.extents.y * 1.2f);
+        return Physics.Raycast(_controller.transform.position, -Vector3.up, _controller.bounds.extents.y + 0.1f);
     }
 
     private Vector3 Damp(Vector3 source, Vector3 target, float smoothing, float dt)
