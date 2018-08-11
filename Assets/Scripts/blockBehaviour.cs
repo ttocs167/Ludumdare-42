@@ -3,52 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class blockBehaviour : MonoBehaviour {
-    public class block
+    public GameObject[] path;
+    private int pathCounter;
+    public float Speed;
+    private bool triggered;
+    public bool trigger;
+    public bool repeat;
+    private Vector3 direction;
+    public bool retrigger;
+    // Use this for initialization
+    void Start()
     {
-        public string BlockType;
-        public Vector3 Speed;
-        public bool Triggereder;
-        public block(string bT) {
-            switch (bT)
-            {
-                case "Standard":
-                    Speed = new Vector3(0,0,0);
-                    Triggereder = false;
-                    break;
-                case "Elevator":
-                    Speed = new Vector3(0, 1, 0);
-                    Triggereder = false;
-                    break;
-                default:
-                    Speed = new Vector3(0, 0, 0);
-                    Triggereder = false;
-                    break;
-            }
-
+        pathCounter = 0;
+        triggered = false;
+        if (path.Length != 0)
+        {
+            direction = (path[pathCounter].transform.position - this.transform.position) / (path[pathCounter].transform.position - this.transform.position).magnitude;
+        }
+        else
+        {
+            Destroy(this);
         }
     }
-    public string blockType;
-    public block ablock;
-    private bool triggered;
-	// Use this for initialization
-	void Start () {
-        ablock = new block(blockType);
-        triggered = false;
-        Debug.Log("START");
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        if (triggered || ablock.Triggereder == false)
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (path.Length != 0)
         {
-            //change this to move to empty markers
-            this.transform.position = this.transform.position + ablock.Speed/100;
-        }	
-	}
+            if (triggered || trigger == false)
+            {
+                if (Vector3.Distance(path[pathCounter].transform.position, this.transform.position) < 2 * Speed * Time.fixedDeltaTime)
+                {
+                    pathCounter++;
+                    if (pathCounter >= path.Length)
+                    {
+                        pathCounter = 0;
+                        if (retrigger)
+                        {
+                            triggered = false;
+                        }
+                        else { 
+                            if (!repeat)
+                            {
+                                Destroy(this);
+                            }
+                        }
+                    }
+                    direction = (path[pathCounter].transform.position - this.transform.position) / (path[pathCounter].transform.position - this.transform.position).magnitude;
+                }
+                this.transform.position += direction * Speed * Time.fixedDeltaTime;
+            }
+        }
+    }
 
     void playerCollision()
     {
-        Debug.Log("Poop");
         triggered = true;
     }
 }
