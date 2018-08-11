@@ -18,4 +18,8 @@ public class gameManagement : MonoBehaviour {
             started = true;
         }
 	}
+    public void Death()
+    {
+        Debug.Log("Death");
+    }
 }

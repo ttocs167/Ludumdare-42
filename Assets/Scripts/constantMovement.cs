@@ -190,6 +190,10 @@ public class constantMovement : MonoBehaviour
 
             jump = wallJump;
         }
+        if(hit.transform.tag == "Water")
+        {
+            gameManager.Death();
+        }
     }
 
     private bool IsGrounded()  // Better grounding check (_controller.isGrounded isnt as forgiving, causing double jumps from ground)
