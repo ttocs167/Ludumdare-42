@@ -195,6 +195,10 @@ public class constantMovement : MonoBehaviour
             gameManager.Death();
         }
 
+        // David's shitty shit
+
+        hit.transform.SendMessage("playerCollision", SendMessageOptions.DontRequireReceiver);
+
     }
 
     void OnTriggerEnter(Collider other)
