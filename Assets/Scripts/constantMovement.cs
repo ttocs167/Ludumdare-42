@@ -56,8 +56,6 @@ public class constantMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(IsGrounded());
-        Debug.Log(_controller.bounds.extents.y);
         // Movement and turning
 
         if (is2D)
