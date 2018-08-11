@@ -88,7 +88,7 @@ public class constantMovement : MonoBehaviour
 
         // Jumping
 
-        if (IsGrounded())
+        if (IsGrounded() && started)
         {
             // Reset everything on grounding
             jumping = false;
