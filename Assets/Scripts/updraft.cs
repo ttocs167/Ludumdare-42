@@ -13,7 +13,7 @@ public class updraft : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		
 	}
     private void OnTriggerStay(Collider other)
