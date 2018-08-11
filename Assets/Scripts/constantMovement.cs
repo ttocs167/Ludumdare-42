@@ -50,6 +50,12 @@ public class constantMovement : MonoBehaviour
     private GameObject lava;
     
 
+	private AudioSource CoinFX;
+	public AudioSource OtherFX;
+	public AudioSource BumpFX;
+	public AudioClip FootSteps;
+	public AudioClip Bump;
+
     // Use this for initialization
     void Start()
     {
@@ -59,6 +65,8 @@ public class constantMovement : MonoBehaviour
         zPos = _controller.transform.position.z;
         direction = 1;
         collided = false;
+
+		CoinFX = GetComponent<AudioSource> ();
     }
 
     // Update is called once per frame
@@ -75,10 +83,12 @@ public class constantMovement : MonoBehaviour
         if (!started && Input.GetKeyDown("space"))
         {
             started = true;
+			OtherFX.Pause ();
         }
 
         if (started){
             input = new Vector3(direction, 0, 0);  // constantly move right to start
+
         }
 
         float planeSpeed = Mathf.Sqrt(Mathf.Pow(_controller.velocity.x, 2) + Mathf.Pow(_controller.velocity.z, 2));
@@ -114,10 +124,19 @@ public class constantMovement : MonoBehaviour
             jump = Vector3.zero;
             wallJump = Vector3.zero;
 
+
+			if ((!OtherFX.isPlaying) && started) {
+				OtherFX.clip = FootSteps;
+				OtherFX.loop = true;
+				OtherFX.Play ();
+			}
+
             if (Input.GetKeyDown(KeyCode.Mouse0) && started)
             {
                 jump.y = jumpHeight;
                 jumping = true;
+				OtherFX.Pause ();
+
             }
         }
 
@@ -131,18 +150,21 @@ public class constantMovement : MonoBehaviour
 
             if (jumping)
             {
+				OtherFX.Pause ();
                 highJumpGravity = Mathf.Clamp(highJumpGravity * Mathf.Pow(0.9f, 250f * Time.deltaTime), 1 / highJumpModifier, 1f);  // Framerate independent
             }
 
             if (_controller.velocity.y <= 0)
             {
                 highJumpGravity = 1f;
+				OtherFX.Pause ();
             }
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && doubleJumps < maxDoubleJumps)  // Double Jumping
             {
                 doubleJumps++;
                 jump.y = jumpHeight * doubleJumpMultiplier;
+				OtherFX.Pause ();
             }
 
         }
@@ -180,6 +202,10 @@ public class constantMovement : MonoBehaviour
             if (!collided)
             {
                 direction *= -1;
+				//OtherFX.Pause ();
+				//OtherFX.loop = false;
+				//OtherFX.clip = Bump;
+				BumpFX.PlayOneShot (Bump);
             }
         }
 
@@ -209,10 +235,12 @@ public class constantMovement : MonoBehaviour
     {  
         if (other.gameObject.tag == "Coin")
         {
+			CoinFX.Play ();
             Debug.Log("COIN!");
             other.gameObject.SetActive(false);
             gameManager.coinCount++;
             gameManager.CoinUpdate();
+		
         }
 
         if(other.gameObject.tag == "Clock")

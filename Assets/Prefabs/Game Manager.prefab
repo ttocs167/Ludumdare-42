@@ -161,7 +161,7 @@ MonoBehaviour:
   started: 0
   coinCount: 0
   coinText: {fileID: 114471750115384628}
-  canvas: {fileID: 0}
+  canvas: {fileID: 223286741457601292}
 --- !u!222 &222593203085174268
 CanvasRenderer:
   m_ObjectHideFlags: 1
