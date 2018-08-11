@@ -60,6 +60,11 @@ public class constantMovement : MonoBehaviour
         Debug.Log(_controller.bounds.extents.y);
         // Movement and turning
 
+        if (is2D)
+        {
+            _controller.transform.position = new Vector3(_controller.transform.position.x, _controller.transform.position.y, zPos);
+        }
+
         if (Input.GetKeyDown("space"))
         {
             started = true;
