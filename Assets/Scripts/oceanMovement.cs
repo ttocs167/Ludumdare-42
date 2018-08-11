@@ -7,18 +7,21 @@ public class oceanMovement : MonoBehaviour {
     public float waveStrength;
     [Range(0, 0.1f)]
     public float waveSpeed;
+    public float planeSpeed;
+    public float planeAccel;
+    public GameObject managerObject;
 
     private Mesh mesh;
     private Vector3[] vertices;
     private List<float> offsets = new List<float>();
     private List<bool> flowDirection = new List<bool>();
     private float initial;
+    private gameManagement gameManager;
+    private bool started;
 
-    public float planeSpeed;
-    public float planeAccel;
 	// Use this for initialization
 	void Start () {
-
+        gameManager = managerObject.GetComponent<gameManagement>();
         mesh = this.GetComponent<MeshFilter>().mesh;
         vertices = mesh.vertices;
 
@@ -33,6 +36,7 @@ public class oceanMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+        started = gameManager.started;
         mesh = this.GetComponent<MeshFilter>().mesh;
         vertices = mesh.vertices;
 
@@ -59,7 +63,10 @@ public class oceanMovement : MonoBehaviour {
         mesh.RecalculateBounds();
 
         //Rising water
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed/100, this.transform.position.z);
-        planeSpeed = planeSpeed + planeAccel;
+        if (started)
+        {
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed / 100, this.transform.position.z);
+            planeSpeed = planeSpeed + planeAccel;
+        }
     }
 }

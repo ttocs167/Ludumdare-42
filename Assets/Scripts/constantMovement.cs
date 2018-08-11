@@ -26,6 +26,7 @@ public class constantMovement : MonoBehaviour
     [Range(0f, 1f)]
     public float airMomentum;
     public float dashMultiplier;
+    public GameObject managerObject;
 
     private CharacterController _controller;
     private Vector3 input;
@@ -40,25 +41,27 @@ public class constantMovement : MonoBehaviour
     private Vector3 oldInput;
     private bool jumping;
     private float highJumpGravity;
-    private bool started;
+    private gameManagement gameManager;
     private int direction;
     private bool collided;
     private float currentMoveSpeed;
+    private bool started;
     
 
     // Use this for initialization
     void Start()
     {
+        gameManager = managerObject.GetComponent<gameManagement>();
         _controller = GetComponent<CharacterController>();
         zPos = _controller.transform.position.z;
         direction = 1;
-        started = false;
         collided = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        started = gameManager.started;
         // Movement and turning
 
         if (is2D)
@@ -99,7 +102,7 @@ public class constantMovement : MonoBehaviour
 
         // Jumping
 
-        if (IsGrounded() && started)
+        if (IsGrounded())
         {
             // Reset everything on grounding
             jumping = false;
@@ -108,7 +111,7 @@ public class constantMovement : MonoBehaviour
             jump = Vector3.zero;
             wallJump = Vector3.zero;
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && started)
             {
                 jump.y = jumpHeight;
                 jumping = true;
