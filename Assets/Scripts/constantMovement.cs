@@ -25,6 +25,7 @@ public class constantMovement : MonoBehaviour
     public int maxDoubleJumps;
     [Range(0f, 1f)]
     public float airMomentum;
+    public float dashMultiplier;
 
     private CharacterController _controller;
     private Vector3 input;
@@ -42,6 +43,8 @@ public class constantMovement : MonoBehaviour
     private bool started;
     private int direction;
     private bool collided;
+    private float currentMoveSpeed;
+    
 
     // Use this for initialization
     void Start()
@@ -63,7 +66,7 @@ public class constantMovement : MonoBehaviour
             _controller.transform.position = new Vector3(_controller.transform.position.x, _controller.transform.position.y, zPos);
         }
 
-        if (Input.GetKeyDown("space"))
+        if (!started && Input.GetKeyDown("space"))
         {
             started = true;
         }
@@ -73,6 +76,16 @@ public class constantMovement : MonoBehaviour
         }
 
         float planeSpeed = Mathf.Sqrt(Mathf.Pow(_controller.velocity.x, 2) + Mathf.Pow(_controller.velocity.z, 2));
+
+        // Dash Movement
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            currentMoveSpeed = moveSpeed * dashMultiplier;
+        }
+        else
+        {
+            currentMoveSpeed = moveSpeed;
+        }
 
         // Animations
         //
@@ -95,7 +108,7 @@ public class constantMovement : MonoBehaviour
             jump = Vector3.zero;
             wallJump = Vector3.zero;
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 jump.y = jumpHeight;
                 jumping = true;
@@ -104,7 +117,7 @@ public class constantMovement : MonoBehaviour
 
         else  // Mid Air
         {
-            if (Input.GetButtonUp("Jump"))  // High jump grav reset
+            if (Input.GetKeyUp(KeyCode.Mouse0))  // High jump grav reset
             {
                 jumping = false;
                 highJumpGravity = 1f;
@@ -120,21 +133,10 @@ public class constantMovement : MonoBehaviour
                 highJumpGravity = 1f;
             }
 
-            if (Input.GetButtonDown("Jump") && doubleJumps < maxDoubleJumps)  // Double Jumping
+            if (Input.GetKeyDown(KeyCode.Mouse0) && doubleJumps < maxDoubleJumps)  // Double Jumping
             {
                 doubleJumps++;
                 jump.y = jumpHeight * doubleJumpMultiplier;
-            }
-
-            // Ledge grab
-            if (Input.GetButton("Interact"))
-            {
-                //Debug.DrawRay(_controller.transform.position + new Vector3(-1 * _controller.transform.forward.z, 1, 0), -Vector3.up, Color.red);
-
-                if (Physics.Raycast(_controller.transform.position + new Vector3(-1 * _controller.transform.forward.z, 1, 0), -Vector3.up, 1f))
-                {
-                    Debug.Log("Ledge Grab!");
-                }
             }
 
         }
@@ -157,7 +159,7 @@ public class constantMovement : MonoBehaviour
         jump.x = Mathf.SmoothDamp(jump.x, 0, ref referenceVel, 0.3f);  // Damp any horizontal jump velocity from wall jumps
         jump += Physics.gravity * Time.deltaTime * gravityModifier * highJumpGravity;  // Add gravity
 
-        moveSum = (input * moveSpeed) + jump;  // Final movement vector is sum of all contributions
+        moveSum = (input * currentMoveSpeed) + jump;  // Final movement vector is sum of all contributions
         _controller.Move(moveSum * Time.deltaTime);
 
     }
@@ -172,9 +174,7 @@ public class constantMovement : MonoBehaviour
             {
                 Debug.Log("Collide");
                 direction *= -1;
-                
             }
-
         }
 
         // Wall Jumping
