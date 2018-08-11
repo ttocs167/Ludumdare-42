@@ -41,6 +41,7 @@ public class constantMovement : MonoBehaviour
     private float highJumpGravity;
     private bool started;
     private int direction;
+    private bool collided;
 
     // Use this for initialization
     void Start()
@@ -49,6 +50,7 @@ public class constantMovement : MonoBehaviour
         zPos = _controller.transform.position.z;
         direction = 1;
         started = false;
+        collided = false;
     }
 
     // Update is called once per frame
@@ -160,8 +162,14 @@ public class constantMovement : MonoBehaviour
         // Direction Change
         if ((_controller.collisionFlags & CollisionFlags.Sides) != 0)
         {
-            Debug.Log("Collide");
-            direction *= -1;
+            collided = !collided;
+            if (!collided)
+            {
+                Debug.Log("Collide");
+                direction *= -1;
+                
+            }
+
         }
 
         // Wall Jumping
