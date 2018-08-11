@@ -202,8 +202,9 @@ public class constantMovement : MonoBehaviour
         if (other.gameObject.tag == "Coin")
         {
             Debug.Log("COIN!");
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
             gameManager.coinCount++;
+            gameManager.CoinUpdate();
         }
 
     }
