@@ -27,6 +27,7 @@ public class constantMovement : MonoBehaviour
     public float airMomentum;
     public float dashMultiplier;
     public GameObject managerObject;
+    public Vector3 externalMovements;
 
     private CharacterController _controller;
     private Vector3 input;
@@ -159,6 +160,7 @@ public class constantMovement : MonoBehaviour
 
         // Movement
 
+        jump += externalMovements;
         jump.x = Mathf.SmoothDamp(jump.x, 0, ref referenceVel, 0.3f);  // Damp any horizontal jump velocity from wall jumps
         jump += Physics.gravity * Time.deltaTime * gravityModifier * highJumpGravity;  // Add gravity
 
