@@ -7,14 +7,16 @@ public class gameManagement : MonoBehaviour {
     public bool started;
     public int coinCount;
     public Text coinText;
+    public Canvas canvas;
 
 	// Use this for initialization
 	void Start () {
         started = false;
         coinCount = 0;
         CoinUpdate();
-		
-	}
+        canvas.gameObject.SetActive(true);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
