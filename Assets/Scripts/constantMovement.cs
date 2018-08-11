@@ -172,7 +172,6 @@ public class constantMovement : MonoBehaviour
             collided = !collided;
             if (!collided)
             {
-                Debug.Log("Collide");
                 direction *= -1;
             }
         }

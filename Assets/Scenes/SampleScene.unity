@@ -6296,7 +6296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is2D: 1
-  moveSpeed: 7
+  moveSpeed: 5
   jumpHeight: 11
   doubleJumpMultiplier: 0.8
   gravityModifier: 1.5
@@ -6307,6 +6307,7 @@ MonoBehaviour:
   maxWallJumps: 0
   maxDoubleJumps: 1
   airMomentum: 0.01
+  dashMultiplier: 1.5
 --- !u!1001 &1649779047
 Prefab:
   m_ObjectHideFlags: 0
