@@ -10,6 +10,7 @@ public class oceanMovement : MonoBehaviour {
     public float planeSpeed;
     public float planeAccel;
     public GameObject managerObject;
+    public bool rising;
 
     private Mesh mesh;
     private Vector3[] vertices;
@@ -21,6 +22,7 @@ public class oceanMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        rising = true;
         gameManager = managerObject.GetComponent<gameManagement>();
         mesh = this.GetComponent<MeshFilter>().mesh;
         vertices = mesh.vertices;
@@ -65,8 +67,11 @@ public class oceanMovement : MonoBehaviour {
         //Rising water
         if (started)
         {
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed / 100, this.transform.position.z);
-            planeSpeed = planeSpeed + planeAccel;
+            if (rising)
+            {
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed / 100, this.transform.position.z);
+                planeSpeed = planeSpeed + planeAccel;
+            }
         }
     }
 }

@@ -47,6 +47,7 @@ public class constantMovement : MonoBehaviour
     private bool collided;
     private float currentMoveSpeed;
     private bool started;
+    private GameObject lava;
     
 
     // Use this for initialization
@@ -54,6 +55,7 @@ public class constantMovement : MonoBehaviour
     {
         gameManager = managerObject.GetComponent<gameManagement>();
         _controller = GetComponent<CharacterController>();
+        lava = GameObject.FindGameObjectWithTag("Water");
         zPos = _controller.transform.position.z;
         direction = 1;
         collided = false;
@@ -213,6 +215,15 @@ public class constantMovement : MonoBehaviour
             gameManager.CoinUpdate();
         }
 
+        if(other.gameObject.tag == "Clock")
+        {
+            Debug.Log("CLOCK!");
+            StartCoroutine(FreezeLava(2f, lava));
+            other.gameObject.SetActive(false);
+            gameManager.coinCount++;
+            gameManager.CoinUpdate();
+        }
+
     }
 
     private bool IsGrounded()  // Better grounding check (_controller.isGrounded isnt as forgiving, causing double jumps from ground)
@@ -223,6 +234,15 @@ public class constantMovement : MonoBehaviour
     private Vector3 Damp(Vector3 source, Vector3 target, float smoothing, float dt)
     {
         return Vector3.Lerp(source, target, 1 - Mathf.Pow(smoothing, dt));
+    }
+
+    IEnumerator FreezeLava(float waitTime, GameObject lava)
+    {
+        lava.GetComponent<oceanMovement>().rising = false;
+
+        yield return new WaitForSeconds(waitTime);
+
+        lava.GetComponent<oceanMovement>().rising = true;
     }
 }
 
