@@ -5,7 +5,7 @@ using UnityEngine;
 public class updraft : MonoBehaviour {
     [Range(0, 1f)]
     public float updraftMaxSpeed;
-    [Range(0, 0.1f)]
+    [Range(0, 0.5f)]
     public float updraftForce;
 
 	// Use this for initialization
