@@ -43,15 +43,15 @@ public class constantMovement : MonoBehaviour
     private bool jumping;
     private float highJumpGravity;
     private gameManagement gameManager;
-    private int direction;
+    public int direction;
     private bool collided;
     private float currentMoveSpeed;
     private bool started;
     private GameObject lava;
     private bool coyoteActive;
     private bool wasGrounded;
-    
 
+    public bool isDashing = false;
 	private AudioSource CoinFX;
 	public AudioSource OtherFX;
 	public AudioSource BumpFX;
@@ -98,10 +98,12 @@ public class constantMovement : MonoBehaviour
         // Dash Movement
         if (Input.GetKey(KeyCode.Mouse1))
         {
+            isDashing = true;
             currentMoveSpeed = moveSpeed * dashMultiplier;
         }
         else
         {
+            isDashing = false;
             currentMoveSpeed = moveSpeed;
         }
 
