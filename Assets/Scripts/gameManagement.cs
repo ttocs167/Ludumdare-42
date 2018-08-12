@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class gameManagement : MonoBehaviour {
     public bool started;
@@ -9,6 +10,7 @@ public class gameManagement : MonoBehaviour {
     public Text coinText;
     public Canvas canvas;
     public GameObject pauseScreen;
+    public GameObject gameOverScreen;
 
     // Use this for initialization
     void Start () {
@@ -37,6 +39,9 @@ public class gameManagement : MonoBehaviour {
     public void Death()
     {
         Debug.Log("Death");
+        Time.timeScale = 0f;
+        gameOverScreen.SetActive(true);
+
     }
 
     public void CoinUpdate()
