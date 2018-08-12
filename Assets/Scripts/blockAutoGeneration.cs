@@ -14,8 +14,9 @@ public class blockAutoGeneration : MonoBehaviour {
     public GameObject[] obj;
     public GameObject firstBlock;
     public GameObject boundary;
-	// Use this for initialization
-	void Start () {
+    public GameObject[] blocks;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -31,9 +32,20 @@ public class blockAutoGeneration : MonoBehaviour {
             createBlock(25f, 12f,col.transform.position.x, col.transform.position.y);
             Destroy(col.gameObject);
         }
+        else if (col.transform.tag == "NextBlock")
+        {
+            col.transform.tag = "DeathBlock";
+            Debug.Log("Hello");
+            createActualBlockNotThisBabyStuff(col.transform.position.x, col.transform.position.y);            
+        }        
+    }
+    void createActualBlockNotThisBabyStuff(float oX, float oY)
+    {
+        Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(oX, oY, 1), Quaternion.identity);
     }
     void createBlock(float h, float w, float oX, float oY)
     {
+        
         float dir =Mathf.Round(Random.Range(0f, 1f))*2 - 1;
         float currH = oY;
         float currX = oX;        
