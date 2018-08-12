@@ -48,6 +48,8 @@ public class constantMovement : MonoBehaviour
     private float currentMoveSpeed;
     private bool started;
     private GameObject lava;
+    private bool coyoteActive;
+    private bool wasGrounded;
     
 
 	private AudioSource CoinFX;
@@ -123,6 +125,8 @@ public class constantMovement : MonoBehaviour
             doubleJumps = 0;
             jump = Vector3.zero;
             wallJump = Vector3.zero;
+            wasGrounded = true;
+            coyoteActive = false;
 
 
 			if ((!OtherFX.isPlaying) && started) {
@@ -142,6 +146,18 @@ public class constantMovement : MonoBehaviour
 
         else  // Mid Air
         {
+            if (wasGrounded)  // Coyote time
+            {
+                StartCoroutine(CoyoteTime(0.2f));
+            }
+
+            if (coyoteActive && Input.GetKeyDown(KeyCode.Mouse0) && started)
+            {
+                print("Coyote Jump!");
+                jump.y = jumpHeight;
+                jumping = true;
+            }
+
             if (Input.GetKeyUp(KeyCode.Mouse0))  // High jump grav reset
             {
                 jumping = false;
@@ -160,13 +176,14 @@ public class constantMovement : MonoBehaviour
 				OtherFX.Pause ();
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && doubleJumps < maxDoubleJumps)  // Double Jumping
+            if (Input.GetKeyDown(KeyCode.Mouse0) && doubleJumps < maxDoubleJumps && !coyoteActive)  // Double Jumping
             {
                 doubleJumps++;
                 jump.y = jumpHeight * doubleJumpMultiplier;
 				OtherFX.Pause ();
             }
 
+            wasGrounded = false;
         }
 
         if ((_controller.collisionFlags & CollisionFlags.Above) != 0) // If character hits ceiling, kill vertical velocity
@@ -271,6 +288,16 @@ public class constantMovement : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         lava.GetComponent<oceanMovement>().rising = true;
+    }
+
+    IEnumerator CoyoteTime(float waitTime)
+    {
+        print("Coyote time!");
+        coyoteActive = true;
+
+        yield return new WaitForSeconds(waitTime);
+
+        coyoteActive = false;
     }
 }
 
