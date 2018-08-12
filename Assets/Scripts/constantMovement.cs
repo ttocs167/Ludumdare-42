@@ -58,6 +58,8 @@ public class constantMovement : MonoBehaviour
 	public AudioClip FootSteps;
 	public AudioClip Bump;
 
+	public AudioSource Clock;
+
     // Use this for initialization
     void Start()
     {
@@ -286,8 +288,9 @@ public class constantMovement : MonoBehaviour
     IEnumerator FreezeLava(float waitTime, GameObject lava)
     {
         lava.GetComponent<oceanMovement>().rising = false;
-
+		Clock.Play();
         yield return new WaitForSeconds(waitTime);
+		Clock.Pause ();
 
         lava.GetComponent<oceanMovement>().rising = true;
     }
