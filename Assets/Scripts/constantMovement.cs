@@ -50,6 +50,7 @@ public class constantMovement : MonoBehaviour
     private GameObject lava;
     private bool coyoteActive;
     private bool wasGrounded;
+    private float freezeTimeLeft;
 
     public bool isDashing = false;
 	private AudioSource CoinFX;
@@ -287,12 +288,23 @@ public class constantMovement : MonoBehaviour
 
     IEnumerator FreezeLava(float waitTime, GameObject lava)
     {
-        lava.GetComponent<oceanMovement>().rising = false;
-		Clock.Play();
-        yield return new WaitForSeconds(waitTime);
-		Clock.Pause ();
+        if (lava.GetComponent<oceanMovement>().rising == false)  // if lava is frozen, add time to timer
+        {
+            freezeTimeLeft += waitTime;
+        }
 
-        lava.GetComponent<oceanMovement>().rising = true;
+        if (lava.GetComponent<oceanMovement>().rising == true)  // if lava is not freezing, freeze it and play clock effect
+        {
+            lava.GetComponent<oceanMovement>().rising = false;
+            Clock.Play();
+
+            for (freezeTimeLeft = waitTime; freezeTimeLeft > 0; freezeTimeLeft -= Time.deltaTime)  // wait until timer is done to finish coroutine
+            {
+                yield return null;
+            }
+            lava.GetComponent<oceanMovement>().rising = true;
+            Clock.Pause();
+        }
     }
 
     IEnumerator CoyoteTime(float waitTime)
