@@ -15,14 +15,15 @@ public class blockAutoGeneration : MonoBehaviour {
     public GameObject firstBlock;
     public GameObject boundary;
     public GameObject[] blocks;
+    public GameObject camParent;
     // Use this for initialization
     void Start () {
-		
+        camParent = Camera.main.gameObject;	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        this.transform.position = new Vector3(0, camParent.transform.position.y, 1);
 	}
 
     void OnTriggerEnter(Collider col)
