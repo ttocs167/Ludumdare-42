@@ -8,9 +8,10 @@ public class gameManagement : MonoBehaviour {
     public int coinCount;
     public Text coinText;
     public Canvas canvas;
+    public GameObject pauseScreen;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         started = false;
         coinCount = 0;
         CoinUpdate();
@@ -24,6 +25,14 @@ public class gameManagement : MonoBehaviour {
         {
             started = true;
         }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Time.timeScale = 0f;
+            pauseScreen.SetActive(true);
+
+        }
+
     }
     public void Death()
     {
