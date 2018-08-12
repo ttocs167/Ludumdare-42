@@ -8,6 +8,8 @@ TagManager:
   - Coin
   - AutoBlock
   - Clock
+  - NextBlock
+  - DeathBlock
   layers:
   - Default
   - TransparentFX
