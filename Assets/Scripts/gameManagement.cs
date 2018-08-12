@@ -11,6 +11,7 @@ public class gameManagement : MonoBehaviour {
     public Canvas canvas;
     public GameObject pauseScreen;
     public GameObject gameOverScreen;
+    public Text gameOverText;
 
     // Use this for initialization
     void Start () {
@@ -41,6 +42,8 @@ public class gameManagement : MonoBehaviour {
         Debug.Log("Death");
         Time.timeScale = 0f;
         gameOverScreen.SetActive(true);
+        gameOverText.text = "Final Coin Count: \n" + coinCount.ToString();
+
 
     }
 
