@@ -13,7 +13,7 @@ public class deletebLOCK : MonoBehaviour {
         if(other.tag=="DeathBlock")
         {
             Debug.Log("Die Die Die");
-            Destroy(other.transform.parent.gameObject);
+            Destroy(other.transform.parent.parent.gameObject);
             
         }
     }
