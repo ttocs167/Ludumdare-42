@@ -278,9 +278,25 @@ public class constantMovement : MonoBehaviour
 
     private bool IsGrounded()  // Better grounding check (_controller.isGrounded isnt as forgiving, causing double jumps from ground)
     {
-        return Physics.Raycast(_controller.transform.position, -this.transform.up, _controller.bounds.extents.y +0.1f);
+        bool raycastA = Physics.Raycast(_controller.transform.position + new Vector3(0, 0, 0) / 4, -this.transform.up, _controller.bounds.extents.y + 0.1f);
+        bool raycastB = Physics.Raycast(_controller.transform.position + new Vector3(1, 0, 0) / 4, -this.transform.up, _controller.bounds.extents.y + 0.1f);
+        bool raycastC = Physics.Raycast(_controller.transform.position + new Vector3(-1, 0, 0) / 4, -this.transform.up, _controller.bounds.extents.y + 0.1f);
+        Debug.DrawRay(_controller.transform.position + new Vector3(1, 0, 0) / 4, -this.transform.up, Color.red, Time.deltaTime, false);
+        Debug.DrawRay(_controller.transform.position + new Vector3(-1, 0, 0) / 4, -this.transform.up, Color.red, Time.deltaTime, false);
+        Debug.DrawRay(_controller.transform.position + new Vector3(0, 0, 0) / 4, -this.transform.up, Color.red, Time.deltaTime, false);
+
+        if (raycastA || raycastB || raycastC)
+        {
+            return true;
+        }
+        else return false;
     }
-    
+
+    //private bool IsGrounded()  // Better grounding check (_controller.isGrounded isnt as forgiving, causing double jumps from ground)
+    //{
+    //    return Physics.Raycast(_controller.transform.position, -this.transform.up, _controller.bounds.extents.y + 0.1f);
+    //}
+
     private Vector3 Damp(Vector3 source, Vector3 target, float smoothing, float dt)
     {
         return Vector3.Lerp(source, target, 1 - Mathf.Pow(smoothing, dt));
