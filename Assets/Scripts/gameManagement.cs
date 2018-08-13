@@ -12,19 +12,23 @@ public class gameManagement : MonoBehaviour {
     public GameObject pauseScreen;
     public GameObject gameOverScreen;
     public Text gameOverText;
+    public GameObject startScreen;
 
     private AudioSource shittySong;
     private bool playing;
     private int dogSuprise;
     public AudioClip dogs;
+    private bool paused;
     // Use this for initialization
     void Start () {
         started = false;
         coinCount = 0;
         CoinUpdate();
         canvas.gameObject.SetActive(true);
+        startScreen.SetActive(true);
         shittySong = gameObject.GetComponent<AudioSource>();
         playing = true;
+        paused = false;
         dogSuprise = 0;
     }
 	
@@ -33,12 +37,24 @@ public class gameManagement : MonoBehaviour {
         if (!started && Input.GetKeyDown("space"))
         {
             started = true;
+            startScreen.SetActive(false);
+
         }
 
         if (Input.GetButtonDown("Cancel"))
         {
-            Time.timeScale = 0f;
-            pauseScreen.SetActive(true);
+            if (!paused)
+            {
+                Time.timeScale = 0f;
+                pauseScreen.SetActive(true);
+                paused = true;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                pauseScreen.SetActive(false);
+                paused = false;
+            }
 
         }
         if (Input.GetKeyDown(KeyCode.M))

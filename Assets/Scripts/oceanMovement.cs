@@ -25,8 +25,8 @@ public class oceanMovement : MonoBehaviour {
     private bool started;
     private GameObject player;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         rising = true;
         gameManager = managerObject.GetComponent<gameManagement>();
         mesh = this.GetComponent<MeshFilter>().mesh;
@@ -41,9 +41,9 @@ public class oceanMovement : MonoBehaviour {
             flowDirection.Add(Random.value > 0.5f);
         }
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    void FixedUpdate() {
         started = gameManager.started;
         mesh = this.GetComponent<MeshFilter>().mesh;
         vertices = mesh.vertices;
@@ -77,10 +77,32 @@ public class oceanMovement : MonoBehaviour {
             {
                 float distToLava = Mathf.Abs(player.transform.position.y - this.transform.position.y);
 
-                planeSpeed = Mathf.Clamp(distToLava / 6f, 1f, maxPlaneSpeed);
+                planeSpeed = Mathf.Clamp(distToLava / 6f, 0.8f, maxPlaneSpeed);
                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed * Time.deltaTime, this.transform.position.z);
 
             }
+        }
+    }
+
+    public void SetDifficulty(int difficulty)
+    {
+        switch (difficulty)
+        {
+            case 0:
+                maxPlaneSpeed = 0.9f;
+                break;
+
+            case 1:
+                maxPlaneSpeed = 1.5f;
+                break;
+
+            case 2:
+                maxPlaneSpeed = 2f;
+                break;
+
+            default:
+                maxPlaneSpeed = 1.5f;
+                break;
         }
     }
 }
