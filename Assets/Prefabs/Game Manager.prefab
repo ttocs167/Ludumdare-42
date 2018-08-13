@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1231360671460426
 GameObject:
   m_ObjectHideFlags: 1
@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 4946252462881726}
   - component: {fileID: 114431456569788894}
   - component: {fileID: 114873087380538172}
+  - component: {fileID: 114415973708637398}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -416,7 +417,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000894938683228}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.004279709, y: -0.9287918, z: 0.10635694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -544,7 +545,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1702172079324470}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!33 &33285563752975282
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -911,6 +912,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114415973708637398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1394204870040390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1327945023, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114431456569788894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1021,7 +1033,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Coin Count
+  m_Text: 'Coins: 0'
 --- !u!114 &114519770375158594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1249,7 +1261,7 @@ MonoBehaviour:
   planeSpeed: 1
   planeAccel: 0
   managerObject: {fileID: 1549950132030502}
-  rising: 0
+  rising: 1
 --- !u!114 &114698696837303458
 MonoBehaviour:
   m_ObjectHideFlags: 1
