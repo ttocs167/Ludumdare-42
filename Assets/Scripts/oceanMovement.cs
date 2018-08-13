@@ -23,6 +23,7 @@ public class oceanMovement : MonoBehaviour {
     private float initial;
     private gameManagement gameManager;
     private bool started;
+    private GameObject player;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +31,7 @@ public class oceanMovement : MonoBehaviour {
         gameManager = managerObject.GetComponent<gameManagement>();
         mesh = this.GetComponent<MeshFilter>().mesh;
         vertices = mesh.vertices;
+        player = GameObject.FindGameObjectWithTag("Player");
 
         initial = vertices[0].y;
 
@@ -73,11 +75,11 @@ public class oceanMovement : MonoBehaviour {
         {
             if (rising)
             {
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed * Time.fixedDeltaTime, this.transform.position.z);
-                if (planeSpeed < maxPlaneSpeed)
-                {
-                    planeSpeed = planeSpeed + planeAccel * Time.fixedDeltaTime;
-                }
+                float distToLava = Mathf.Abs(player.transform.position.y - this.transform.position.y);
+
+                planeSpeed = Mathf.Clamp(distToLava / 6f, 1f, maxPlaneSpeed);
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed * Time.deltaTime, this.transform.position.z);
+
             }
         }
     }

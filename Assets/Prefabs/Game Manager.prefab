@@ -1353,11 +1353,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1755b21b0ebe8824d94e3df862e3c2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveStrength: 0
-  waveSpeed: 0
-  planeSpeed: 0
-  planeAccel: 0
-  maxPlaneSpeed: 0
+  waveStrength: 0.4
+  waveSpeed: 0.02
+  planeSpeed: 1
+  planeAccel: 0.05
+  maxPlaneSpeed: 2
   managerObject: {fileID: 1549950132030502}
   rising: 1
 --- !u!114 &114698696837303458
