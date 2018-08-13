@@ -60,9 +60,7 @@ public class blockBehaviour : MonoBehaviour {
         {
             if(trigger && triggered && destroy)
             {
-                Debug.Log(gameObject);
                 Destroy(gameObject, deathTime);
-                Debug.Log("destroy");
                 
             }
         }
