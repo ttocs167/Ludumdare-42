@@ -13,13 +13,19 @@ public class gameManagement : MonoBehaviour {
     public GameObject gameOverScreen;
     public Text gameOverText;
 
+    private AudioSource shittySong;
+    private bool playing;
+    private int dogSuprise;
+    public AudioClip dogs;
     // Use this for initialization
     void Start () {
         started = false;
         coinCount = 0;
         CoinUpdate();
         canvas.gameObject.SetActive(true);
-
+        shittySong = gameObject.GetComponent<AudioSource>();
+        playing = true;
+        dogSuprise = 0;
     }
 	
 	// Update is called once per frame
@@ -34,6 +40,23 @@ public class gameManagement : MonoBehaviour {
             Time.timeScale = 0f;
             pauseScreen.SetActive(true);
 
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (dogSuprise > 10)
+            {
+                shittySong.clip = dogs;
+            }
+            if (playing)
+            {
+                shittySong.Stop();
+            }
+            else
+            {
+                shittySong.Play();
+            }
+            playing = !playing;
+            dogSuprise++;
         }
 
     }
