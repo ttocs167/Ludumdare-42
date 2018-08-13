@@ -432,7 +432,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1549950132030502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0213983, y: 1.856041, z: 2.8190708}
+  m_LocalPosition: {x: 2, y: 2, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224635134661101352}
@@ -606,7 +606,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b3ed391126591974e9fcf99a9d8ee5f7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.698
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1330,6 +1330,7 @@ MonoBehaviour:
   pauseScreen: {fileID: 1955051964400830}
   gameOverScreen: {fileID: 1818691661357206}
   gameOverText: {fileID: 114760512343561616}
+  dogs: {fileID: 8300000, guid: 64cd686e28a6069418de081694880a40, type: 3}
 --- !u!114 &114684020500412014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1352,11 +1353,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1755b21b0ebe8824d94e3df862e3c2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveStrength: 0.4
-  waveSpeed: 0.02
-  planeSpeed: 1
-  planeAccel: 0.05
-  maxPlaneSpeed: 1.5
+  waveStrength: 0
+  waveSpeed: 0
+  planeSpeed: 0
+  planeAccel: 0
+  maxPlaneSpeed: 0
   managerObject: {fileID: 1549950132030502}
   rising: 1
 --- !u!114 &114698696837303458
