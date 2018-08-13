@@ -319,10 +319,10 @@ public class constantMovement : MonoBehaviour
         coyoteActive = false;
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(_controller.transform.position - new Vector3(0, _controller.radius, 0) / 5f, _controller.radius * 0.99f);
-    }
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(_controller.transform.position - new Vector3(0, _controller.radius, 0) / 5f, _controller.radius * 0.99f);
+    //}
 }
 
