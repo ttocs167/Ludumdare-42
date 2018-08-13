@@ -7,8 +7,12 @@ public class oceanMovement : MonoBehaviour {
     public float waveStrength;
     [Range(0, 0.1f)]
     public float waveSpeed;
+    [Range(0, 5f)]
     public float planeSpeed;
+    [Range(0, 0.1f)]
     public float planeAccel;
+    [Range(0, 5f)]
+    public float maxPlaneSpeed;
     public GameObject managerObject;
     public bool rising;
 
@@ -69,8 +73,11 @@ public class oceanMovement : MonoBehaviour {
         {
             if (rising)
             {
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed / 100, this.transform.position.z);
-                planeSpeed = planeSpeed + planeAccel;
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + planeSpeed * Time.fixedDeltaTime, this.transform.position.z);
+                if (planeSpeed < maxPlaneSpeed)
+                {
+                    planeSpeed = planeSpeed + planeAccel * Time.fixedDeltaTime;
+                }
             }
         }
     }
