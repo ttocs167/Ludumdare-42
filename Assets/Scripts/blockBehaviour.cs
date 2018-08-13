@@ -11,6 +11,8 @@ public class blockBehaviour : MonoBehaviour {
     public bool repeat;
     private Vector3 direction;
     public bool retrigger;
+    public bool destroy;
+    public float deathTime;
     // Use this for initialization
     void Start()
     {
@@ -19,10 +21,6 @@ public class blockBehaviour : MonoBehaviour {
         if (path.Length != 0)
         {
             direction = (path[pathCounter].transform.position - this.transform.position) / (path[pathCounter].transform.position - this.transform.position).magnitude;
-        }
-        else
-        {
-            Destroy(this);
         }
     }
 
@@ -44,9 +42,12 @@ public class blockBehaviour : MonoBehaviour {
                             triggered = false;
                         }
                         else { 
-                            if (!repeat)
+                            if (!repeat && !destroy)
                             {
                                 Destroy(this);
+                            }else if (destroy)
+                            {
+                                Destroy(gameObject, deathTime);
                             }
                         }
                     }
@@ -55,6 +56,15 @@ public class blockBehaviour : MonoBehaviour {
                 this.transform.position += direction * Speed * Time.fixedDeltaTime;
             }
         }
+        else
+        {
+            if(trigger && triggered && destroy)
+            {
+                Destroy(gameObject, deathTime);
+                
+            }
+        }
+        
     }
 
     void playerCollision()
