@@ -16,8 +16,9 @@ public class blockAutoGeneration : MonoBehaviour {
     public GameObject firstBlock;
     public GameObject boundary;
     public GameObject[] blocks;
-    public GameObject camParent;
 
+
+    private GameObject camParent;
     private GameObject[] shuffledBlocks;
     private int shuffleIndex;
 
