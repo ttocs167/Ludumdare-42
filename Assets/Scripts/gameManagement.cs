@@ -19,8 +19,14 @@ public class gameManagement : MonoBehaviour {
     private int dogSuprise;
     public AudioClip dogs;
     private bool paused;
+    private GameObject player;
+    private float startHeight;
+    private float endHeight;
+    private float totalHeight;
     // Use this for initialization
     void Start () {
+        player = GameObject.FindGameObjectWithTag("Player");
+        startHeight = player.transform.position.y;
         started = false;
         coinCount = 0;
         CoinUpdate();
@@ -81,13 +87,13 @@ public class gameManagement : MonoBehaviour {
         Debug.Log("Death");
         Time.timeScale = 0f;
         gameOverScreen.SetActive(true);
-        gameOverText.text = "Final Coin Count: \n" + coinCount.ToString();
-
-
+        endHeight = player.transform.position.y;
+        totalHeight = endHeight - startHeight;
+        gameOverText.text = "Final Score: \n" + (coinCount * 100f).ToString() + "\n Total Height: \n" + Mathf.Round(endHeight).ToString() + "m";
     }
 
     public void CoinUpdate()
     {
-        coinText.text = "Coins: " + coinCount.ToString();
+        coinText.text = "Score: " + (coinCount * 100f).ToString();
     }
 }
