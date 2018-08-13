@@ -20,7 +20,6 @@ public class updraft : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("UP!");
             if (other.gameObject.GetComponent<constantMovement>().externalMovements.y < updraftMaxSpeed)
             other.gameObject.GetComponent<constantMovement>().externalMovements.y += updraftForce;
         }

@@ -258,7 +258,6 @@ public class constantMovement : MonoBehaviour
         if (other.gameObject.tag == "Coin")
         {
 			CoinFX.Play ();
-            Debug.Log("COIN!");
             other.gameObject.SetActive(false);
             gameManager.coinCount++;
             gameManager.CoinUpdate();
@@ -277,25 +276,12 @@ public class constantMovement : MonoBehaviour
     }
 
     private bool IsGrounded()  // Better grounding check (_controller.isGrounded isnt as forgiving, causing double jumps from ground)
-    {
-        bool raycastA = Physics.Raycast(_controller.transform.position + new Vector3(0, 0, 0) / 4, -this.transform.up, _controller.bounds.extents.y + 0.1f);
-        bool raycastB = Physics.Raycast(_controller.transform.position + new Vector3(1, 0, 0) / 4, -this.transform.up, _controller.bounds.extents.y + 0.1f);
-        bool raycastC = Physics.Raycast(_controller.transform.position + new Vector3(-1, 0, 0) / 4, -this.transform.up, _controller.bounds.extents.y + 0.1f);
-        Debug.DrawRay(_controller.transform.position + new Vector3(1, 0, 0) / 4, -this.transform.up, Color.red, Time.deltaTime, false);
-        Debug.DrawRay(_controller.transform.position + new Vector3(-1, 0, 0) / 4, -this.transform.up, Color.red, Time.deltaTime, false);
-        Debug.DrawRay(_controller.transform.position + new Vector3(0, 0, 0) / 4, -this.transform.up, Color.red, Time.deltaTime, false);
+    { 
+        bool checkSphere = Physics.CheckSphere(_controller.transform.position - new Vector3(0, _controller.radius, 0) / 5f, _controller.radius * 0.99f);
 
-        if (raycastA || raycastB || raycastC)
-        {
-            return true;
-        }
-        else return false;
+        return checkSphere;
     }
 
-    //private bool IsGrounded()  // Better grounding check (_controller.isGrounded isnt as forgiving, causing double jumps from ground)
-    //{
-    //    return Physics.Raycast(_controller.transform.position, -this.transform.up, _controller.bounds.extents.y + 0.1f);
-    //}
 
     private Vector3 Damp(Vector3 source, Vector3 target, float smoothing, float dt)
     {
@@ -332,5 +318,11 @@ public class constantMovement : MonoBehaviour
 
         coyoteActive = false;
     }
+
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(_controller.transform.position - new Vector3(0, _controller.radius, 0) / 5f, _controller.radius * 0.99f);
+    //}
 }
 

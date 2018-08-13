@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class blockAutoGeneration : MonoBehaviour {
+
     public float minJumpHeight = 4f;
     public float maxJumpHeight = 4f;
     public float bounceHeight = 4f;
@@ -16,13 +17,24 @@ public class blockAutoGeneration : MonoBehaviour {
     public GameObject boundary;
     public GameObject[] blocks;
     public GameObject camParent;
+
+    private GameObject[] shuffledBlocks;
+    private int shuffleIndex;
+
+
     // Use this for initialization
-    void Start () {
-        camParent = Camera.main.gameObject;	
+
+    void Start ()
+    {
+        camParent = Camera.main.gameObject;
+        shuffledBlocks = reshuffle(blocks);
+        
 	}
 	
 	// Update is called once per frame
-	void Update () {
+
+	void Update ()
+    {
         this.transform.position = new Vector3(0, camParent.transform.position.y, 1);
 	}
 
@@ -36,20 +48,28 @@ public class blockAutoGeneration : MonoBehaviour {
         else if (col.transform.tag == "NextBlock")
         {
             col.transform.tag = "DeathBlock";
-            Debug.Log("Hello");
-            createActualBlockNotThisBabyStuff(col.transform.position.x, col.transform.position.y);            
+            buildNextSection(col.transform.position.x, col.transform.position.y);            
         }        
     }
-    void createActualBlockNotThisBabyStuff(float oX, float oY)
+
+    void buildNextSection(float oX, float oY)
     {
-        Instantiate(blocks[Random.Range(0, blocks.Length)], new Vector3(oX, oY, 1), Quaternion.identity);
+        Instantiate(shuffledBlocks[shuffleIndex], new Vector3(oX, oY, 1), Quaternion.identity);
+        shuffleIndex++;
+        if (shuffleIndex >= blocks.Length)
+        {
+            shuffleIndex = 0;
+            shuffledBlocks = reshuffle(blocks);
+        }
     }
+
+    // Procedural staircase level function (not prefab stitching)
     void createBlock(float h, float w, float oX, float oY)
     {
         
         float dir =Mathf.Round(Random.Range(0f, 1f))*2 - 1;
         float currH = oY;
-        float currX = oX;        
+        float currX = oX;
         h = h + oY;        
         currH = currH + iniJumpHeight;
         currX = currX + dir*iniJumpWidth-2*dir;
@@ -82,9 +102,7 @@ public class blockAutoGeneration : MonoBehaviour {
             }
             else
             {
-                currX = currX + dir * (dx)+dir;      
-                
-                
+                currX = currX + dir * (dx)+dir;
             }
             currH = currH + dh;
                         
@@ -93,9 +111,26 @@ public class blockAutoGeneration : MonoBehaviour {
             Instantiate(obj[Random.Range(0, (obj.Length - 1))], currPos, Quaternion.identity);
             
         }
+
         GameObject BlockLeft = Instantiate(boundary, new Vector3(oX - w, oY, 1), Quaternion.identity);
         BlockLeft.transform.localScale = new Vector3(1, currH-oY, 1);
         GameObject BlockRight = Instantiate(boundary, new Vector3(oX + w, oY, 1), Quaternion.identity);
         BlockRight.transform.localScale = new Vector3(1, currH-oY, 1);
     }
+
+    // Array shuffle function
+    GameObject[] reshuffle(GameObject[] units)
+    {
+        // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+        for (int t = 0; t < units.Length; t++)
+        {
+            GameObject tmp = units[t];
+            int r = Random.Range(t, units.Length);
+            units[t] = units[r];
+            units[r] = tmp;
+        }
+
+        return units;
+    }
+
 }
